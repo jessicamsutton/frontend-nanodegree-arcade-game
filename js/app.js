@@ -38,11 +38,7 @@ class Player {
   // Update the player's position, required method for game
   update(dt) {
     if (this.y === -23) {
-      setTimeout(function() {
-        // create a modal omg
-        player.x = 200;
-        player.y = 392;
-      }, 500);
+      $('#myModal').modal('show')
     } else {
       // do nothing
     }
@@ -70,11 +66,11 @@ class Player {
 }
 
 // Player and enemy objects
-const player = new Player(200, 392);
-const enemy = new Enemy(-150, 226, 2.5);
-const enemy2 = new Enemy(-150, 60, 2);
-const enemy3 = new Enemy(-150, 143, 1.5);
-const allEnemies = [];
+let player = new Player(200, 392);
+let allEnemies = [];
+let enemy = new Enemy(-150, 226, 2.5);
+let enemy2 = new Enemy(-150, 60, 2);
+let enemy3 = new Enemy(-150, 143, 1.5);
 allEnemies.push(enemy, enemy2, enemy3);
 
 // This listens for key presses and sends the keys to your
@@ -90,7 +86,6 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-
 function checkCollisions() {
   if ((player.y === enemy.y && enemy.x <= player.x + 70 && enemy.x >= player.x - 70) ||
       (player.y === enemy2.y && enemy2.x <= player.x + 70 && enemy2.x >= player.x - 70) ||
@@ -99,3 +94,25 @@ function checkCollisions() {
         player.y = 392;
   }
 }
+
+// Event listener for Play Again button in modal
+const playAgainButton = document.querySelector('.btn-primary');
+playAgainButton.addEventListener('click', function(e) {
+  $('#myModal').modal('toggle');
+  player.x = 200;
+  player.y = 392;
+  allEnemies = [];
+  enemy = new Enemy(-150, 226, 2.5);
+  enemy2 = new Enemy(-150, 60, 2);
+  enemy3 = new Enemy(-150, 143, 1.5);
+  allEnemies.push(enemy, enemy2, enemy3);
+});
+
+// Event listener for exit button in modal
+const exitButton = document.querySelector('.btn-secondary');
+exitButton.addEventListener('click', function(e) {
+  $('#myModal').modal('toggle');
+  allEnemies = [];
+  player.x = -200;
+  player.y = -200;
+});
