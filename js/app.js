@@ -1,4 +1,4 @@
-// Enemies our player must avoid
+// Class to generate the enemy bugs
 class Enemy {
   constructor(x, y, speed) {
     this.x = x;
@@ -35,7 +35,7 @@ class Player {
     this.sprite = 'images/char-horn-girl.png';
   }
 
-  // Update the player's position, required method for game
+  // Update the player's position
   update(dt) {
     if (this.y === -23) {
       $('#myModal').modal('show')
@@ -45,7 +45,7 @@ class Player {
   }
 
 
-  // Draw the player on the screen, required method for game
+  // Draw the player on the screen
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
@@ -73,7 +73,7 @@ let enemy2 = new Enemy(-150, 60, 2);
 let enemy3 = new Enemy(-150, 143, 1.5);
 allEnemies.push(enemy, enemy2, enemy3);
 
-// This listens for key presses and sends the keys to your
+// This listens for key presses and sends the keys to the
 // Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
@@ -86,6 +86,7 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+// Function to check for collisions between player and enemy objects
 function checkCollisions() {
   if ((player.y === enemy.y && enemy.x <= player.x + 70 && enemy.x >= player.x - 70) ||
       (player.y === enemy2.y && enemy2.x <= player.x + 70 && enemy2.x >= player.x - 70) ||
@@ -108,7 +109,7 @@ playAgainButton.addEventListener('click', function(e) {
   allEnemies.push(enemy, enemy2, enemy3);
 });
 
-// Event listener for exit button in modal
+// Event listener for No Thanks button in modal
 const exitButton = document.querySelector('.btn-secondary');
 exitButton.addEventListener('click', function(e) {
   $('#myModal').modal('toggle');
