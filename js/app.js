@@ -44,7 +44,6 @@ class Player {
     }
   }
 
-
   // Draw the player on the screen
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
